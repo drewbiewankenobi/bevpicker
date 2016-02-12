@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+	<script type="text/javascript" src="
+	https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.0/jquery.js">
+	</script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/js/bootstrap.min.js">
+	</script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.9/angular.js"></script>
+	<script type="text/javascript" src="script.js"></script>
+	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/css/bootstrap.css">
+	<link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" type="text/css" href="style.css">
+	<title>Bev Picker - Find Wine</title>
+</head>
+<body ng-controller="bodyTroller" class="wineBacker">
+<div ng-class="{blur: blurClick}">
+<!-- nav bah -->
+	<nav class="navbar navbar-default">
+	  <div class="container-fluid">
+	    <!-- Brand and toggle get grouped for better mobile display -->
+	    <div class="navbar-header navhover">
+	      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+	        <span class="sr-only">Toggle navigation</span>
+	        <span class="icon-bar"></span>
+	        <span class="icon-bar"></span>
+	        <span class="icon-bar"></span>
+	      </button>
+	      <a class="navbar-brand" href="file:///Users/student/projects/midterm/index.html">HOME</a>
+	    </div>
+
+	    <!-- nav links, forms, and other content -->
+	    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+	      <ul class="nav navbar-nav">
+	        <li class ="navhover"><a href="wine.html">Wine Pairing <span class="sr-only">(current)</span></a></li>
+	        <li class ="navhover"><a href="beer.html">Beer Pairing</a></li>
+	      <li class ="navhover"><a href="food.html">Food Pairing</a></li>
+	      <li class ="navhover"><a href="blog.html">Picker Blog</a></li>
+	      </ul>
+	      <ul class="nav navbar-nav navbar-right">
+	        <li class="navhover"><a href="author.html">About the Picker</a></li>
+	        <li class="dropdown">
+	          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Favorite Wineries<span class="caret"></span></a>
+	          <ul class="dropdown-menu">
+	            <li><a href="http://www.trefethen.com/" target="_blank">Trefethen Family</a></li>
+	            <li><a href="http://farniente.com/" target="_blank">Far Niente</a></li>
+	            <li><a href="http://www.robertmondaviwinery.com/" target="_blank">Robert Mondavi</a></li>
+	            <li><a href="http://www.owenroe.com/" target="_blank">Owen Roe</a></li>
+	          </ul>
+	        </li>
+	        <li class="dropdown">
+	          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Favorite Breweries<span class="caret"></span></a>
+	          <ul class="dropdown-menu">
+	            <li><a href="http://greatdivide.com/" target="_blank">Great Divide Brewing (Denver,CO)</a></li>
+	            <li><a href="http://www.sanitasbrewing.com/" target="_blank">Sanitas Brewing (Boulder,CO)</a></li>
+	            <li><a href="http://www.jollypumpkin.com/jp/jolly-pumpkin-beer" target="_blank">Jolly Pumpkin (Dexter, MI)</a></li>
+	            <li><a href="http://russianriverbrewing.com/" target="_blank">Russian River (Santa Rosa, CA)</a></li>
+	          </ul>
+	        </li>
+	      </ul>
+	    </div><!-- /.navbar-collapse -->
+	  </div><!-- /.container-fluid -->
+	</nav>
+	<!-- header -->
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-xs-12">
+				<h1 class = "header">Wine</h1>
+			</div>
+		</div>
+	</div>
+
+	<!-- CONTENT -->
+	<div class="container">
+		<div class="row">
+			<div class="col-sm-1"></div>
+			<div class="col-xs-12 col-sm-5 welcomeBack" id="radioBox">
+				<form>
+					<input ng-click="clicker($event,'character')" type="radio" name="re" value="forward" ng-model="search.character"> Fruit Forward <br>
+					<input ng-click="clicker($event,'character')" type="radio" name="re" value="heavy" ng-model="search.character"> Tannic <br>
+					<input ng-click="clicker($event,'character')" type="radio" name="re" value="dry" ng-model="search.character"> Dry
+				</form>
+			</div>
+			<div class="col-xs-12 col-sm-5 welcomeBack" id="radioBox">
+					<input ng-click="clicker($event,'body')" type="radio" name="re" value="light" ng-model="search.body"> Light Body <br>
+					<input ng-click="clicker($event,'body')" type="radio" name="re" value="medium" ng-model="search.body"> Medium Body <br>
+					<input ng-click="clicker($event,'body')" type="radio" name="re" value="full" ng-model="search.body"> Full Body
+				</form>
+			</div>
+			<div class="col-sm-1"></div>
+		</div>
+	</div>
+	<div class="container">
+		<div class="row">
+			<div ng-click="pusher(wine); blurMaker()"data-toggle="modal" data-target="#myModal" ng-repeat="wine in wineBox | filter:search as results" class = "col-xs-12 col-sm-6 col-md-3">
+			<img class="pagePics" ng-src={{wine.img}}>
+			<h3 class="styleOver">&nbsp;{{wine.name}}</h3></div>
+			<div ng-if="results.length == 0">
+			<img class="pagePics" src="wine-glass.jpg">
+			<h3 class="styleOver" style="color:black">&nbsp;No Matches</h3>
+			</div>
+		</div>
+	</div>
+</div>
+	<!-- modal -->
+	<div>
+		<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+		  <div class="modal-dialog" role="document">
+		    <div style="background-image: url({{wineBox[myIndex].img}})" class="modal-content modalPics">
+		      <div class="modal-header modalBorder">
+		        <h4 class="modal-title welcomeBack" id="myModalLabel">{{wineBox[myIndex].name}}</h4>
+		      </div>
+		      <div class="welcomeBack modalBorder" ng-repeat="desc in wineBox[myIndex].description"class="modal-body">
+		        {{desc}}
+		      </div>
+		      <div class="modal-footer">
+		        <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+			  <div class="panel panel-default" id="collapseColor">
+			    <div class="panel-heading" role="tab" id="headingOne">
+			      <h4 class="panel-title">
+			        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+			          Picker's Bottle Choice
+			        </a>
+			      </h4>
+			    </div>
+			    <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+			      <div style="background-color:black" class="panel-body dropBack">
+			        {{wineBox[myIndex].myBottles[0]}}<br>
+			        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee.
+			      </div>
+			    </div>
+			  </div>
+			  <div class="panel panel-default" id="collapseColor">
+			    <div class="panel-heading" role="tab" id="headingTwo">
+			      <h4 class="panel-title">
+			        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+			          Picker's Solid Food Pairing
+			        </a>
+			      </h4>
+			    </div>
+			    <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+			      <div style="background-color:black" class="panel-body dropBack">
+			        {{wineBox[myIndex].myBottles[1]}}<br>
+			        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee.
+			      </div>
+			    </div>
+			  </div>
+			  <div class="panel panel-default" id="collapseColor">
+			    <div class="panel-heading" role="tab" id="headingThree">
+			      <h4 class="panel-title">
+			        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+			          Picker's Adventurous Food Pairing
+			        </a>
+			      </h4>
+			    </div>
+			    <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+			      <div style="background-color:black" class="panel-body dropBack">
+			        {{wineBox[myIndex].myBottles[2]}}<br>
+			        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee.
+			      </div>
+			    </div>
+			  </div>
+			</div>
+		        <button ng-click="blurMaker()" type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+		      </div>
+		    </div>
+		  </div>
+		</div>
+	</div>
+	<br>
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-md-3"></div>
+			<div class="col-xs-4 col-md-2" ><a href="wine.html"><img class = "linkPics" src="whirl.jpg">
+				<h2 class="textOver">&nbsp;grape</h2></a>
+			</div>
+			<div class="col-xs-4 col-md-2" ><a href="beer.html"><img class = "linkPics" src="beer-glass.jpg">
+				<h2 class="textOver">&nbsp;grain</h2></a>
+			</div>
+			<div class="col-xs-4 col-md-2"><a href="food.html"><img class = "linkPics" src="plate2.jpg">
+				<h2 class="textOver">&nbsp;plate</h2></a>
+			</div>
+			<div class="col-xs-3"></div>
+		</div>
+	</div>
+</body>
+	<script type="text/javascript">
+        var allRadios = document.getElementsByName('re');
+        var booRadio;
+        var x = 0;
+        for(x = 0; x < allRadios.length; x++){
+
+            allRadios[x].onclick = function() {
+                if(booRadio == this){
+                    this.checked = false;
+                    booRadio = null;
+                }else{
+                    booRadio = this;
+                }
+            };
+        }
+    </script>
+</html>
