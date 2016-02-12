@@ -16,6 +16,9 @@
 </head>
 <body ng-controller="bodyTroller" class="foodBacker">
 <div ng-class="{blur: blurClick}">
+
+<!--CONTENT-->
+
 <!-- nav bah -->
 	<nav class="navbar navbar-default">
 	  <div class="container-fluid">
@@ -62,6 +65,8 @@
 	    </div><!-- /.navbar-collapse -->
 	  </div><!-- /.container-fluid -->
 	</nav>
+
+	<!--CONTENT-->
 
 	<div class="container-fluid">
 		<div class="row">
@@ -120,7 +125,7 @@
 			<img class="pagePics" ng-src={{food.img}}>
 			<h3 class="styleOver">&nbsp;{{food.name}}</h3></div>
 			<div ng-if="results.length == 0">
-			<img class="pagePics" src="wine-glass.jpg">
+			<img class="pagePics" src="empty-plate.png">
 			<h3 class="styleOver">&nbsp;No Matches</h3>
 			</div>
 		</div>

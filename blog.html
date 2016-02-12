@@ -62,6 +62,8 @@
 	  </div><!-- /.container-fluid -->
 	</nav>
 
+	<!-- CONTENT -->
+
 	<div class="container-fluid">
 		<div class="row">
 			<div class="col-xs-12">
@@ -71,8 +73,25 @@
 	</div>
 	<div class="welcomeBack" ng-repeat="posts in blogBox">
 			<h2>{{posts.title}}<h2>
-			<h3>{{posts.date}}<h3>
+			<h3>{{posts.date}}</h3>
 			<p>{{posts.content}}</p>
 	</div>
+	<br>
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-md-3"></div>
+			<div class="col-xs-4 col-md-2" ><a href="wine.html"><img class = "linkPics" src="whirl.jpg">
+				<h2 class="textOver">&nbsp;grape</h2></a>
+			</div>
+			<div class="col-xs-4 col-md-2" ><a href="beer.html"><img class = "linkPics" src="beer-glass.jpg">
+				<h2 class="textOver">&nbsp;grain</h2></a>
+			</div>
+			<div class="col-xs-4 col-md-2"><a href="food.html"><img class = "linkPics" src="plate2.jpg">
+				<h2 class="textOver">&nbsp;plate</h2></a>
+			</div>
+			<div class="col-xs-3"></div>
+		</div>
+	</div>
+
 </body>
 </html>
